@@ -86,8 +86,7 @@
 <body>
 
 <div class="hints-panel">
-  <h3>Hints</h3>
-  <div class="hint-item"><code>.</code> = leaf &nbsp;|&nbsp; <code>(L R)</code> = node</div>
+  <h3>Usage</h3>
   <div class="hint-item">T&#x208b; must have same leaf count as T&#x208a;</div>
   <div class="hint-item">Permutation &alpha;: space-separated, 1-indexed</div>
   <div class="hint-item">Click T&#x208a; leaves to split; click inner nodes to merge</div>
@@ -126,17 +125,17 @@
         <div class="input-row" style="margin-top:12px">
           <div class="input-group">
             <label>T&#x208a; &mdash; top tree</label>
-            <input id="t1-0" type="text" value="(. .)">
+            <input id="t1-0" type="text" value=".">
             <div class="err" id="e-t1-0"></div>
           </div>
           <div class="input-group">
             <label>T&#x208b; &mdash; bottom tree</label>
-            <input id="t2-0" type="text" value="(. .)">
+            <input id="t2-0" type="text" value=".">
             <div class="err" id="e-t2-0"></div>
           </div>
           <div class="input-group">
             <label>Permutation &alpha; (1-indexed)</label>
-            <input id="perm-0" type="text" value="1 2">
+            <input id="perm-0" type="text" value="1">
             <div class="err" id="e-perm-0"></div>
           </div>
         </div>
@@ -166,17 +165,17 @@
         <div class="input-row" style="margin-top:12px">
           <div class="input-group">
             <label>T&#x208a; &mdash; top tree</label>
-            <input id="t1-1" type="text" value="(. .)">
+            <input id="t1-1" type="text" value=".">
             <div class="err" id="e-t1-1"></div>
           </div>
           <div class="input-group">
             <label>T&#x208b; &mdash; bottom tree</label>
-            <input id="t2-1" type="text" value="(. .)">
+            <input id="t2-1" type="text" value=".">
             <div class="err" id="e-t2-1"></div>
           </div>
           <div class="input-group">
             <label>Permutation &alpha; (1-indexed)</label>
-            <input id="perm-1" type="text" value="1 2">
+            <input id="perm-1" type="text" value="1">
             <div class="err" id="e-perm-1"></div>
           </div>
         </div>
@@ -1379,7 +1378,7 @@ function loadIntoST(st,prefix,svgId){
 
 // ─── Presets ──────────────────────────────────────────────────────────────────
 const PRESETS={
-  identity:{t1:'(. .)',t2:'(. .)',perm:'1 2'},
+  identity:{t1:'.',t2:'.',perm:'1'},
   x0:{t1:'((. .) .)',t2:'(. (. .))',perm:'1 2 3'},
   x1:{t1:'(. ((. .) .))',t2:'(. (. (. .)))',perm:'1 2 3 4'},
   rot3:{t1:'((. .) .)',t2:'((. .) .)',perm:'3 1 2'},
