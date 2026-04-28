@@ -1495,8 +1495,14 @@ function useResult(idx){
 // ─── Init ─────────────────────────────────────────────────────────────────────
 setupEvents(ST[0],'svg0');
 setupEvents(ST[1],'svg1');
-presetInto(0,'identity');
-presetInto(1,'identity');
+[0,1].forEach(idx=>{
+  initId(ST[idx]);
+  const p=String(idx);
+  document.getElementById('t1-'+p).value='.';
+  document.getElementById('t2-'+p).value='.';
+  document.getElementById('perm-'+p).value='1';
+  fullRender(ST[idx],'svg'+idx);
+});
 </script>
 </body>
 </html>
