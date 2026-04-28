@@ -996,7 +996,9 @@ function renderNV(st, svgId, n) {
   if (st.sel1 !== null) {
     s += `<text x="${rv(W/2)}" y="${rv(H-7)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL_SEL}" opacity="0.9" pointer-events="none">arrow from ${st.sel1+1} \u2192 click a bottom number to redirect</text>`;
   } else {
-    s += `<text x="${rv(W/2)}" y="${rv(H-20)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click \u25cf: split / merge  \u00b7  shift-click \u25cf: \u2A2F-split  \u00b7  click edge: cycle color</text>`;
+    s += `<text x="${rv(W/2)}" y="${rv(H-46)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click ●: split / merge</text>`;
+    s += `<text x="${rv(W/2)}" y="${rv(H-33)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">shift-click ●: ⨯-split</text>`;
+    s += `<text x="${rv(W/2)}" y="${rv(H-20)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click edge: cycle color</text>`;
     s += `<text x="${rv(W/2)}" y="${rv(H-7)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click label: redirect arrow</text>`;
   }
 
