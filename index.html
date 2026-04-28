@@ -44,6 +44,14 @@
     }
     .input-group input:focus { border-color: #58a6ff; }
     .hint { font-size: 11px; color: #8b949e; margin-top: 4px; }
+    .hints-panel {
+      position: fixed; top: 20px; right: 20px; z-index: 100;
+      background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+      padding: 12px 16px; max-width: 220px;
+    }
+    .hints-panel h3 { font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #8b949e; margin-bottom: 8px; }
+    .hints-panel .hint-item { font-size: 11px; color: #8b949e; margin-bottom: 5px; line-height: 1.5; }
     .err  { font-size: 11px; color: #f85149; margin-top: 4px; min-height: 15px; }
     .btn-load {
       background: #238636; color: #fff; border: none; border-radius: 6px;
@@ -77,8 +85,17 @@
 </head>
 <body>
 
+<div class="hints-panel">
+  <h3>Hints</h3>
+  <div class="hint-item"><code>.</code> = leaf &nbsp;|&nbsp; <code>(L R)</code> = node</div>
+  <div class="hint-item">T&#x208b; must have same leaf count as T&#x208a;</div>
+  <div class="hint-item">Permutation &alpha;: space-separated, 1-indexed</div>
+  <div class="hint-item">Click T&#x208a; leaves to split; click inner nodes to merge</div>
+  <div class="hint-item">Braided mode: drag any strand to create a crossing</div>
+</div>
+
 <h1>Thompson Group Element Visualizer</h1>
-<p class="subtitle">Click T₊ leaves to split; click inner nodes to merge. In Braided mode: drag any strand to create a crossing.</p>
+<p class="subtitle">Visualize and multiply elements of Thompson's groups F, T, V, nV, and bV.</p>
 
 <div class="group-row">
   <label>Colors n =</label>
@@ -110,19 +127,16 @@
           <div class="input-group">
             <label>T&#x208a; &mdash; top tree</label>
             <input id="t1-0" type="text" value="(. .)">
-            <div class="hint"><code>.</code> = leaf &nbsp;|&nbsp; <code>(L R)</code> = node</div>
             <div class="err" id="e-t1-0"></div>
           </div>
           <div class="input-group">
             <label>T&#x208b; &mdash; bottom tree</label>
             <input id="t2-0" type="text" value="(. .)">
-            <div class="hint">Same leaf count as T&#x208a;</div>
             <div class="err" id="e-t2-0"></div>
           </div>
           <div class="input-group">
             <label>Permutation &alpha; (1-indexed)</label>
             <input id="perm-0" type="text" value="1 2">
-            <div class="hint">Space-separated</div>
             <div class="err" id="e-perm-0"></div>
           </div>
         </div>
@@ -153,19 +167,16 @@
           <div class="input-group">
             <label>T&#x208a; &mdash; top tree</label>
             <input id="t1-1" type="text" value="(. .)">
-            <div class="hint"><code>.</code> = leaf &nbsp;|&nbsp; <code>(L R)</code> = node</div>
             <div class="err" id="e-t1-1"></div>
           </div>
           <div class="input-group">
             <label>T&#x208b; &mdash; bottom tree</label>
             <input id="t2-1" type="text" value="(. .)">
-            <div class="hint">Same leaf count as T&#x208a;</div>
             <div class="err" id="e-t2-1"></div>
           </div>
           <div class="input-group">
             <label>Permutation &alpha; (1-indexed)</label>
             <input id="perm-1" type="text" value="1 2">
-            <div class="hint">Space-separated</div>
             <div class="err" id="e-perm-1"></div>
           </div>
         </div>
