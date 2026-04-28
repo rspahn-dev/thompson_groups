@@ -87,7 +87,7 @@
 <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; margin-bottom:20px;">
   <div>
     <h1>Thompson Group Element Visualizer</h1>
-    <p class="subtitle">Visualize and multiply elements of Thompson's groups F, T, V, nV, and bV.</p>
+    <p class="subtitle">Visualize and multiply elements of Thompson's groups F, T, V, nV, V_br, and nV_br.</p>
     <div class="group-row" style="margin-bottom:0">
       <label>Colors n =</label>
       <input id="n-input" type="number" min="1" max="8" value="1"
@@ -118,29 +118,6 @@
       <button class="btn-ex" onclick="loadCrossPreset(0,'svg0')">Cross &isin; nV</button>
       <button class="btn-ex" onclick="loadBraidedCrossPreset(0,'svg0')">BCross &isin; bV</button>
     </div>
-    <details class="panel">
-      <summary class="panel-title">Edit text / load custom</summary>
-      <div class="panel-inner">
-        <div class="input-row" style="margin-top:12px">
-          <div class="input-group">
-            <label>T&#x208a; &mdash; top tree</label>
-            <input id="t1-0" type="text" value=".">
-            <div class="err" id="e-t1-0"></div>
-          </div>
-          <div class="input-group">
-            <label>T&#x208b; &mdash; bottom tree</label>
-            <input id="t2-0" type="text" value=".">
-            <div class="err" id="e-t2-0"></div>
-          </div>
-          <div class="input-group">
-            <label>Permutation &alpha; (1-indexed)</label>
-            <input id="perm-0" type="text" value="1">
-            <div class="err" id="e-perm-0"></div>
-          </div>
-        </div>
-        <button class="btn-load" onclick="loadIntoST(ST[0],'0','svg0')">Load</button>
-      </div>
-    </details>
     <div class="diagram-wrap"><svg id="svg0"></svg></div>
   </div>
 
@@ -158,29 +135,6 @@
       <button class="btn-ex" onclick="loadCrossPreset(1,'svg1')">Cross &isin; nV</button>
       <button class="btn-ex" onclick="loadBraidedCrossPreset(1,'svg1')">BCross &isin; bV</button>
     </div>
-    <details class="panel">
-      <summary class="panel-title">Edit text / load custom</summary>
-      <div class="panel-inner">
-        <div class="input-row" style="margin-top:12px">
-          <div class="input-group">
-            <label>T&#x208a; &mdash; top tree</label>
-            <input id="t1-1" type="text" value=".">
-            <div class="err" id="e-t1-1"></div>
-          </div>
-          <div class="input-group">
-            <label>T&#x208b; &mdash; bottom tree</label>
-            <input id="t2-1" type="text" value=".">
-            <div class="err" id="e-t2-1"></div>
-          </div>
-          <div class="input-group">
-            <label>Permutation &alpha; (1-indexed)</label>
-            <input id="perm-1" type="text" value="1">
-            <div class="err" id="e-perm-1"></div>
-          </div>
-        </div>
-        <button class="btn-load" onclick="loadIntoST(ST[1],'1','svg1')">Load</button>
-      </div>
-    </details>
     <div class="diagram-wrap"><svg id="svg1"></svg></div>
   </div>
 </div>
