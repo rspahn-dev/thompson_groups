@@ -588,7 +588,7 @@ function renderBV(st, svgId, n) {
     : Math.max(BRAID_BASE, numLevels * BRAID_STEP + BRAID_BASE);
   const brBot = brTop + braidH;
   const oy2 = brBot + h2 + 12;
-  const H = oy2 + PAD + 44;
+  const H = oy2 + PAD + 72;
 
   const levelY = Array.from({length: numLevels}, (_, lv) =>
     brTop + (lv + 1) * braidH / (numLevels + 1));
@@ -747,8 +747,8 @@ function renderBV(st, svgId, n) {
   const bstr = st.braid.length === 0 ? 'e'
     : st.braid.map(({i,sign}) => `\u03c3${i+1}${sign<0?'\u207b\u00b9':''}`).join('\u00b7');
   svg_s += `<text x="${rv(PAD)}" y="${rv(H-7)}" font-size="11" font-family="monospace" fill="${COL}" opacity="0.85" pointer-events="none">\u03b2 = ${bstr}</text>`;
-  svg_s += `<text x="${rv(W/2)}" y="${rv(H-20)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">leaf: split  \u00b7  shift-leaf: \u2A2F-split  \u00b7  \u2299: merge</text>`;
-  svg_s += `<text x="${rv(W/2)}" y="${rv(H-7)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">drag: \u03c3  \u00b7  shift-drag: \u03c3\u207b\u00b9  \u00b7  click crossing: remove  \u00b7  shift-click crossing: toggle \u00b1</text>`;
+  svg_s += `<text x="${rv(W/2)}" y="${rv(H-20)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">leaf: split  \u00b7  shift-leaf: \u2A2F-split  \u00b7  \u2299: merge</text>`;
+  svg_s += `<text x="${rv(W/2)}" y="${rv(H-7)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">drag: \u03c3  \u00b7  shift-drag: \u03c3\u207b\u00b9  \u00b7  click crossing: remove  \u00b7  shift-click crossing: toggle \u00b1</text>`;
 
   // Braid-zone resize grip — bottom-right corner handle
   const gx = W - PAD + 6, gy = brBot;
@@ -892,7 +892,7 @@ function renderNV(st, svgId, n) {
   const oy2 = permBot + STUB + h2;
   const ox  = PAD;
   const W   = nL * SS + 2 * PAD;
-  const H   = oy2 + PAD + 44;
+  const H   = oy2 + PAD + 80;
 
   const l1ids = l1.leaves.map(lf => lf.id);
   const l2ids = l2.leaves.map(lf => lf.id);
@@ -996,10 +996,10 @@ function renderNV(st, svgId, n) {
   if (st.sel1 !== null) {
     s += `<text x="${rv(W/2)}" y="${rv(H-7)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL_SEL}" opacity="0.9" pointer-events="none">arrow from ${st.sel1+1} \u2192 click a bottom number to redirect</text>`;
   } else {
-    s += `<text x="${rv(W/2)}" y="${rv(H-46)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click ●: split / merge</text>`;
-    s += `<text x="${rv(W/2)}" y="${rv(H-33)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">shift-click ●: ⨯-split</text>`;
-    s += `<text x="${rv(W/2)}" y="${rv(H-20)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click edge: cycle color</text>`;
-    s += `<text x="${rv(W/2)}" y="${rv(H-7)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click label: redirect arrow</text>`;
+    s += `<text x="${rv(W/2)}" y="${rv(H-61)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click ●: split / merge</text>`;
+    s += `<text x="${rv(W/2)}" y="${rv(H-43)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">shift-click ●: ⨯-split</text>`;
+    s += `<text x="${rv(W/2)}" y="${rv(H-25)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click edge: cycle color</text>`;
+    s += `<text x="${rv(W/2)}" y="${rv(H-7)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click label: redirect arrow</text>`;
   }
 
   svg.setAttribute('width', W);
