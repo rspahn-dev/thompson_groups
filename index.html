@@ -997,6 +997,7 @@ function renderNV(st, svgId, n) {
     s += `<text x="${rv(W/2)}" y="${rv(H-7)}" text-anchor="middle" font-size="11" font-family="monospace" fill="${COL_SEL}" opacity="0.9" pointer-events="none">arrow from ${st.sel1+1} \u2192 click a bottom number to redirect</text>`;
   } else {
     s += `<text x="${rv(W/2)}" y="${rv(H-61)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click ●: split / merge</text>`;
+    s += <br></br>
     s += `<text x="${rv(W/2)}" y="${rv(H-43)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">shift-click ●: ⨯-split</text>`;
     s += `<text x="${rv(W/2)}" y="${rv(H-25)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click edge: cycle color</text>`;
     s += `<text x="${rv(W/2)}" y="${rv(H-7)}" text-anchor="middle" font-size="13" font-family="monospace" fill="${COL}" opacity="0.9" pointer-events="none">click label: redirect arrow</text>`;
