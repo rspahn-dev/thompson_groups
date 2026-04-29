@@ -21,35 +21,6 @@
       border-radius: 6px; padding: 6px 11px; font-size: 12px; cursor: pointer; transition: all 0.12s;
     }
     .btn-ex:hover { border-color: #58a6ff; color: #58a6ff; }
-    details.panel {
-      background: #161b22; border: 1px solid #30363d; border-radius: 10px;
-      margin-bottom: 14px; overflow: hidden;
-    }
-    summary.panel-title {
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.08em; color: #8b949e; padding: 13px 20px;
-      cursor: pointer; user-select: none; list-style: none;
-    }
-    summary.panel-title::marker, summary.panel-title::-webkit-details-marker { display: none; }
-    summary.panel-title::after { content: '  \25b8'; }
-    details[open] summary.panel-title::after { content: '  \25be'; }
-    .panel-inner { padding: 0 20px 18px; }
-    .input-row { display: flex; gap: 14px; flex-wrap: wrap; }
-    .input-group { flex: 1; min-width: 180px; }
-    .input-group label { display: block; font-size: 12px; color: #8b949e; margin-bottom: 5px; }
-    .input-group input {
-      width: 100%; background: #0d1117; border: 1px solid #30363d; border-radius: 6px;
-      color: #e6edf3; font-family: 'Courier New', monospace; font-size: 13px;
-      padding: 7px 10px; outline: none; transition: border-color 0.15s;
-    }
-    .input-group input:focus { border-color: #58a6ff; }
-    .hint { font-size: 11px; color: #8b949e; margin-top: 4px; }
-    .err  { font-size: 11px; color: #f85149; margin-top: 4px; min-height: 15px; }
-    .btn-load {
-      background: #238636; color: #fff; border: none; border-radius: 6px;
-      padding: 7px 14px; font-size: 12px; font-weight: 500; cursor: pointer; margin-top: 12px;
-    }
-    .btn-load:hover { background: #2ea043; }
     .diagram-wrap {
       background: #161b22; border: 1px solid #30363d; border-radius: 10px;
       padding: 20px; overflow: auto; min-height: 200px;
@@ -120,32 +91,6 @@
       <button class="btn-ex" onclick="loadCrossPreset(0,'svg0')">Cross &isin; nV</button>
       <button class="btn-ex" onclick="loadBraidedCrossPreset(0,'svg0')">BCross &isin; bV</button>
     </div>
-    <details class="panel">
-      <summary class="panel-title">Edit text / load custom</summary>
-      <div class="panel-inner">
-        <div class="input-row" style="margin-top:12px">
-          <div class="input-group">
-            <label>T&#x208a; &mdash; top tree</label>
-            <input id="t1-0" type="text" value="(. .)">
-            <div class="hint"><code>.</code> = leaf &nbsp;|&nbsp; <code>(L R)</code> = node</div>
-            <div class="err" id="e-t1-0"></div>
-          </div>
-          <div class="input-group">
-            <label>T&#x208b; &mdash; bottom tree</label>
-            <input id="t2-0" type="text" value="(. .)">
-            <div class="hint">Same leaf count as T&#x208a;</div>
-            <div class="err" id="e-t2-0"></div>
-          </div>
-          <div class="input-group">
-            <label>Permutation &alpha; (1-indexed)</label>
-            <input id="perm-0" type="text" value="1 2">
-            <div class="hint">Space-separated</div>
-            <div class="err" id="e-perm-0"></div>
-          </div>
-        </div>
-        <button class="btn-load" onclick="loadIntoST(ST[0],'0','svg0')">Load</button>
-      </div>
-    </details>
     <div class="diagram-wrap"><svg id="svg0"></svg></div>
   </div>
 
@@ -163,32 +108,6 @@
       <button class="btn-ex" onclick="loadCrossPreset(1,'svg1')">Cross &isin; nV</button>
       <button class="btn-ex" onclick="loadBraidedCrossPreset(1,'svg1')">BCross &isin; bV</button>
     </div>
-    <details class="panel">
-      <summary class="panel-title">Edit text / load custom</summary>
-      <div class="panel-inner">
-        <div class="input-row" style="margin-top:12px">
-          <div class="input-group">
-            <label>T&#x208a; &mdash; top tree</label>
-            <input id="t1-1" type="text" value="(. .)">
-            <div class="hint"><code>.</code> = leaf &nbsp;|&nbsp; <code>(L R)</code> = node</div>
-            <div class="err" id="e-t1-1"></div>
-          </div>
-          <div class="input-group">
-            <label>T&#x208b; &mdash; bottom tree</label>
-            <input id="t2-1" type="text" value="(. .)">
-            <div class="hint">Same leaf count as T&#x208a;</div>
-            <div class="err" id="e-t2-1"></div>
-          </div>
-          <div class="input-group">
-            <label>Permutation &alpha; (1-indexed)</label>
-            <input id="perm-1" type="text" value="1 2">
-            <div class="hint">Space-separated</div>
-            <div class="err" id="e-perm-1"></div>
-          </div>
-        </div>
-        <button class="btn-load" onclick="loadIntoST(ST[1],'1','svg1')">Load</button>
-      </div>
-    </details>
     <div class="diagram-wrap"><svg id="svg1"></svg></div>
   </div>
 </div>
@@ -260,7 +179,7 @@ function cfg() {
 
 // ─── State ────────────────────────────────────────────────────────────────────
 function makeState() {
-  return { reg: new Map(), nextId: 0, roots1: [], roots2: [], perm: [], braid: [], sel1: null, hovId: null, edgeColors: new Map(), braidH: null };
+  return { reg: new Map(), nextId: 0, roots1: [], roots2: [], perm: [], braid: [], sel1: null, hovId: null, edgeColors: new Map(), braidH: null, permH: null };
 }
 const ST = [makeState(), makeState()];
 let resultST = null;
@@ -792,7 +711,7 @@ function renderV(st, svgId) {
 
   // Permutation zone: a fixed-height band between the two trees where arrows live.
   // Leaves extend vertically into this zone via stubs so arrows never overlap tree edges.
-  const PERM_ZONE = Math.max(60, nL * 14); // grows with nL so crossing arrows have room
+  const PERM_ZONE = st.permH !== null ? Math.max(40, st.permH) : Math.max(60, nL * 14);
   const STUB = 18; // vertical stub length from leaf into perm zone
 
   const oy1=PAD+18;           // T₊ root y
@@ -851,6 +770,16 @@ function renderV(st, svgId) {
   s+=`<line x1="${rv(ox-8)}" y1="${rv(permTop)}" x2="${rv(ox+nL*SS+8)}" y2="${rv(permTop)}" stroke="${COL}" stroke-width="0.5" opacity="0.12" pointer-events="none"/>`;
   s+=`<line x1="${rv(ox-8)}" y1="${rv(permBot)}" x2="${rv(ox+nL*SS+8)}" y2="${rv(permBot)}" stroke="${COL}" stroke-width="0.5" opacity="0.12" pointer-events="none"/>`;
 
+  // Perm zone resize grip
+  const pgx=W-PAD+6, pgy=permBot;
+  s+=`<g class="perm-resize" cursor="ns-resize" pointer-events="all" data-permh="${PERM_ZONE}">`;
+  s+=`<rect x="${rv(pgx-14)}" y="${rv(pgy-10)}" width="20" height="20" fill="transparent"/>`;
+  s+=`<line x1="${rv(pgx-6)}" y1="${rv(pgy-4)}" x2="${rv(pgx)}" y2="${rv(pgy)}" stroke="${COL}" stroke-width="1.5" stroke-linecap="round" opacity="0.5" pointer-events="none"/>`;
+  s+=`<line x1="${rv(pgx)}" y1="${rv(pgy)}" x2="${rv(pgx+6)}" y2="${rv(pgy-4)}" stroke="${COL}" stroke-width="1.5" stroke-linecap="round" opacity="0.5" pointer-events="none"/>`;
+  s+=`<line x1="${rv(pgx-6)}" y1="${rv(pgy+4)}" x2="${rv(pgx)}" y2="${rv(pgy)}" stroke="${COL}" stroke-width="1.5" stroke-linecap="round" opacity="0.5" pointer-events="none"/>`;
+  s+=`<line x1="${rv(pgx)}" y1="${rv(pgy)}" x2="${rv(pgx+6)}" y2="${rv(pgy+4)}" stroke="${COL}" stroke-width="1.5" stroke-linecap="round" opacity="0.5" pointer-events="none"/>`;
+  s+=`</g>`;
+
   // Node hits + circles — clicking a node always splits (leaf) or merges (inner)
   for(const [tree,lay,oy] of [[1,l1,oy1],[2,l2,oy2]]){
     for(const nd of lay.nodes){
@@ -896,7 +825,7 @@ function renderNV(st, svgId, n) {
   const h1  = Math.max(0, ...l1.nodes.map(nd => nd.y));
   const h2  = Math.max(0, ...l2.nodes.map(nd => -nd.y));
 
-  const PERM_ZONE = Math.max(60, nL * 14);
+  const PERM_ZONE = st.permH !== null ? Math.max(40, st.permH) : Math.max(60, nL * 14);
   const STUB = 18;
   const oy1 = PAD + 18;
   const permTop = oy1 + h1 + STUB;
@@ -1004,6 +933,16 @@ function renderNV(st, svgId, n) {
     if (isArrow)           s += `<circle cx="${tx}" cy="${rv(permBot-9)}" r="9" fill="none" stroke="${COL_SEL}" stroke-width="1.5" opacity="0.7" pointer-events="none"/>`;
     s += `<text class="lbl-hit" x="${tx}" y="${ty}" text-anchor="middle" font-size="12" font-weight="${isArrow?'700':'400'}" font-family="monospace" fill="${isArrow?COL_SEL:COL_NUM}" cursor="${isTgt?'crosshair':'pointer'}" pointer-events="all" data-tree="2" data-li="${i}">${i+1}</text>`;
   }
+
+  // Perm zone resize grip
+  const pgx = W-PAD+6, pgy = permBot;
+  s += `<g class="perm-resize" cursor="ns-resize" pointer-events="all" data-permh="${PERM_ZONE}">`;
+  s += `<rect x="${rv(pgx-14)}" y="${rv(pgy-10)}" width="20" height="20" fill="transparent"/>`;
+  s += `<line x1="${rv(pgx-6)}" y1="${rv(pgy-4)}" x2="${rv(pgx)}" y2="${rv(pgy)}" stroke="${COL}" stroke-width="1.5" stroke-linecap="round" opacity="0.5" pointer-events="none"/>`;
+  s += `<line x1="${rv(pgx)}" y1="${rv(pgy)}" x2="${rv(pgx+6)}" y2="${rv(pgy-4)}" stroke="${COL}" stroke-width="1.5" stroke-linecap="round" opacity="0.5" pointer-events="none"/>`;
+  s += `<line x1="${rv(pgx-6)}" y1="${rv(pgy+4)}" x2="${rv(pgx)}" y2="${rv(pgy)}" stroke="${COL}" stroke-width="1.5" stroke-linecap="round" opacity="0.5" pointer-events="none"/>`;
+  s += `<line x1="${rv(pgx)}" y1="${rv(pgy)}" x2="${rv(pgx+6)}" y2="${rv(pgy+4)}" stroke="${COL}" stroke-width="1.5" stroke-linecap="round" opacity="0.5" pointer-events="none"/>`;
+  s += `</g>`;
 
   svg.setAttribute('width', W);
   svg.setAttribute('height', H);
@@ -1234,12 +1173,18 @@ function setupEvents(st, svgId) {
     fullRender(st,svgId);
   });
 
-  // Mousedown on braid-zone resize grip
+  // Mousedown on resize grips (braid or perm zone)
   svg.addEventListener('mousedown',e=>{
     const rh=e.target.closest('.braid-resize');
     if(rh){
       const p=svgPt(svg,e.clientX,e.clientY);
-      _resizeDrag={st,svgId,startY:p.y,startH:+rh.dataset.braidh};
+      _resizeDrag={st,svgId,type:'braid',startY:p.y,startH:+rh.dataset.braidh,minH:BRAID_BASE};
+      e.preventDefault(); return;
+    }
+    const pr=e.target.closest('.perm-resize');
+    if(pr){
+      const p=svgPt(svg,e.clientX,e.clientY);
+      _resizeDrag={st,svgId,type:'perm',startY:p.y,startH:+pr.dataset.permh,minH:40};
       e.preventDefault(); return;
     }
     // Mousedown on strand → start crossing drag
@@ -1265,8 +1210,9 @@ document.addEventListener('mousemove',e=>{
   if(_resizeDrag){
     const svg=document.getElementById(_resizeDrag.svgId);
     const p=svgPt(svg,e.clientX,e.clientY);
-    const newH=Math.max(BRAID_BASE,_resizeDrag.startH+(p.y-_resizeDrag.startY));
-    _resizeDrag.st.braidH=newH;
+    const newH=Math.max(_resizeDrag.minH,_resizeDrag.startH+(p.y-_resizeDrag.startY));
+    if(_resizeDrag.type==='perm') _resizeDrag.st.permH=newH;
+    else _resizeDrag.st.braidH=newH;
     fullRender(_resizeDrag.st,_resizeDrag.svgId);
     return;
   }
@@ -1446,14 +1392,26 @@ function loadBraidedCrossPreset(idx, svgId) {
   fullRender(st, svgId);
 }
 
+function loadStateFromStrings(st,svgId,t1str,t2str,permStr){
+  let pT1,pT2;
+  try{pT1=parseTree(t1str);}catch(e){return;}
+  try{pT2=parseTree(t2str);}catch(e){return;}
+  const n=leafCount(pT1);
+  if(leafCount(pT2)!==n)return;
+  const perm1=permStr.trim().split(/\s+/).map(Number);
+  if(perm1.length!==n)return;
+  const seen=new Set(perm1);
+  if(seen.size!==n||[...seen].some(v=>v<1||v>n))return;
+  st.reg.clear();st.nextId=0;st.sel1=null;st.hovId=null;st.braid=[];st.edgeColors=new Map();
+  st.roots1=[importInto(st,pT1)];st.roots2=[importInto(st,pT2)];
+  st.perm=perm1.map(v=>v-1);
+  fullRender(st,svgId);
+}
 function presetInto(idx,name){
   const {n,braided}=cfg(); const svgId='svg'+idx;
   if(n>1||braided){initId(ST[idx]);fullRender(ST[idx],svgId);return;}
-  const p=PRESETS[name],prefix=String(idx);
-  document.getElementById('t1-'+prefix).value=p.t1;
-  document.getElementById('t2-'+prefix).value=p.t2;
-  document.getElementById('perm-'+prefix).value=p.perm;
-  loadIntoST(ST[idx],prefix,svgId);
+  const p=PRESETS[name];
+  loadStateFromStrings(ST[idx],svgId,p.t1,p.t2,p.perm);
 }
 
 // ─── Multiplication ───────────────────────────────────────────────────────────
