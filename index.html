@@ -1479,11 +1479,7 @@ function compute(){
 function useResult(idx){
   if(!resultST)return;
   const c=deepCopy(resultST); ST[idx]=c;
-  const prefix=String(idx),svgId='svg'+idx;
-  function aStr(t){return t.leaf?'.':'('+aStr(t.L)+' '+aStr(t.R)+')';}
-  document.getElementById('t1-'+prefix).value=aStr(treeAnon(c.roots1[0],c.reg));
-  document.getElementById('t2-'+prefix).value=aStr(treeAnon(c.roots2[0],c.reg));
-  document.getElementById('perm-'+prefix).value=c.perm.map(v=>v+1).join(' ');
+  const svgId='svg'+idx;
   setupEvents(ST[idx],svgId);
   fullRender(ST[idx],svgId);
 }
