@@ -1028,16 +1028,40 @@ function fullRender(st, svgId) {
 
 function _renderHistSidebar(idx) {
   const list = document.getElementById('hist-list-' + idx);
+  const scrollTop = list.scrollTop;
   list.innerHTML = '';
   HISTORY[idx].forEach((entry, i) => {
     const div = document.createElement('div');
     div.className = 'hist-item' + (i === _histActive[idx] ? ' hist-active' : '');
     div.textContent = (i + 1) + '. ' + entry.label;
-    div.title = entry.label;
+    div.title = 'Click to restore · Double-click to rename';
     div.onclick = () => _restoreHistory(idx, i);
+    div.ondblclick = e => { e.stopPropagation(); _startRenameHist(idx, i, div); };
     list.appendChild(div);
   });
-  list.scrollTop = list.scrollHeight;
+  list.scrollTop = scrollTop || list.scrollHeight;
+}
+
+function _startRenameHist(idx, i, div) {
+  const entry = HISTORY[idx][i];
+  const inp = document.createElement('input');
+  inp.type = 'text';
+  inp.value = entry.label;
+  inp.style.cssText = 'width:100%;background:#0f1117;color:#c9d1d9;border:1px solid #58a6ff;border-radius:3px;padding:2px 4px;font-size:11px;box-sizing:border-box;outline:none;';
+  div.textContent = '';
+  div.appendChild(inp);
+  inp.focus();
+  inp.select();
+  const commit = () => {
+    const val = inp.value.trim();
+    if (val) entry.label = val;
+    _renderHistSidebar(idx);
+  };
+  inp.onblur = commit;
+  inp.onkeydown = e => {
+    if (e.key === 'Enter') { e.preventDefault(); inp.blur(); }
+    if (e.key === 'Escape') { inp.value = entry.label; inp.blur(); }
+  };
 }
 
 function _restoreHistory(idx, i) {
