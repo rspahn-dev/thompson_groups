@@ -72,9 +72,12 @@
     .hist-toggle:hover { color: #c9d1d9; }
     .hist-list { overflow-y: auto; flex: 1; padding: 4px; }
     .hist-sidebar.collapsed .hist-list { display: none; }
-    .hist-item { padding: 4px 8px; font-size: 11px; color: #8b949e; cursor: pointer; border-radius: 4px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hist-item { display: flex; align-items: center; gap: 4px; padding: 4px 6px; font-size: 11px; color: #8b949e; border-radius: 4px; margin-bottom: 2px; cursor: text; }
     .hist-item:hover { background: #21262d; color: #c9d1d9; }
     .hist-item.hist-active { background: #1f3a5f; color: #58a6ff; }
+    .hist-item-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .hist-restore { flex-shrink: 0; background: transparent; border: none; color: #6e7681; cursor: pointer; font-size: 11px; padding: 0 2px; line-height: 1; }
+    .hist-restore:hover { color: #c9d1d9; }
 
     @media (max-width: 600px) {
       body { padding: 16px 12px; }
@@ -1033,23 +1036,33 @@ function _renderHistSidebar(idx) {
   HISTORY[idx].forEach((entry, i) => {
     const div = document.createElement('div');
     div.className = 'hist-item' + (i === _histActive[idx] ? ' hist-active' : '');
-    div.textContent = (i + 1) + '. ' + entry.label;
-    div.title = 'Click to restore · Double-click to rename';
-    div.onclick = () => _restoreHistory(idx, i);
-    div.ondblclick = e => { e.stopPropagation(); _startRenameHist(idx, i, div); };
+
+    const lbl = document.createElement('span');
+    lbl.className = 'hist-item-label';
+    lbl.textContent = (i + 1) + '. ' + entry.label;
+    lbl.title = 'Click to rename';
+    lbl.onclick = e => { e.stopPropagation(); _startRenameHist(idx, i, lbl, div); };
+
+    const btn = document.createElement('button');
+    btn.className = 'hist-restore';
+    btn.textContent = '↩';
+    btn.title = 'Restore';
+    btn.onclick = e => { e.stopPropagation(); _restoreHistory(idx, i); };
+
+    div.appendChild(lbl);
+    div.appendChild(btn);
     list.appendChild(div);
   });
   list.scrollTop = scrollTop || list.scrollHeight;
 }
 
-function _startRenameHist(idx, i, div) {
+function _startRenameHist(idx, i, lbl, row) {
   const entry = HISTORY[idx][i];
   const inp = document.createElement('input');
   inp.type = 'text';
   inp.value = entry.label;
-  inp.style.cssText = 'width:100%;background:#0f1117;color:#c9d1d9;border:1px solid #58a6ff;border-radius:3px;padding:2px 4px;font-size:11px;box-sizing:border-box;outline:none;';
-  div.textContent = '';
-  div.appendChild(inp);
+  inp.style.cssText = 'flex:1;min-width:0;background:#0f1117;color:#c9d1d9;border:1px solid #58a6ff;border-radius:3px;padding:2px 4px;font-size:11px;box-sizing:border-box;outline:none;';
+  lbl.replaceWith(inp);
   inp.focus();
   inp.select();
   const commit = () => {
