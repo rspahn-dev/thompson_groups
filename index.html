@@ -26,6 +26,7 @@
       padding: 20px; overflow: auto; min-height: 200px;
       display: flex; justify-content: center; align-items: flex-start;
     }
+    svg { touch-action: none; }
     svg text { user-select: none; }
     .elem-row { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 14px; }
     .elem-header { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
@@ -1322,27 +1323,31 @@ function setupEvents(st, svgId) {
     fullRender(st,svgId);
   });
 
-  // Mousedown on resize grips (braid or perm zone)
-  svg.addEventListener('mousedown',e=>{
+  // Pointerdown on resize grips (braid or perm zone) and strand drag
+  svg.addEventListener('pointerdown',e=>{
+    if(e.button!==0&&e.pointerType==='mouse')return;
     const rh=e.target.closest('.braid-resize');
     if(rh){
       const p=svgPt(svg,e.clientX,e.clientY);
       _resizeDrag={st,svgId,type:'braid',startY:p.y,startH:+rh.dataset.braidh,minH:BRAID_BASE};
+      svg.setPointerCapture(e.pointerId);
       e.preventDefault(); return;
     }
     const pr=e.target.closest('.perm-resize');
     if(pr){
       const p=svgPt(svg,e.clientX,e.clientY);
       _resizeDrag={st,svgId,type:'perm',startY:p.y,startH:+pr.dataset.permh,minH:40};
+      svg.setPointerCapture(e.pointerId);
       e.preventDefault(); return;
     }
-    // Mousedown on strand → start crossing drag
+    // Pointerdown on strand → start crossing drag
     if(!cfg().braided)return;
     const sh=e.target.closest('.strand-drag');
     if(!sh)return;
     const strand=+sh.dataset.strand;
     const p=svgPt(svg,e.clientX,e.clientY);
     _drag={st,svgId,strand,sign:1,startX:p.x,startY:p.y,curX:p.x,curY:p.y,live:false};
+    svg.setPointerCapture(e.pointerId);
     e.preventDefault();
   });
 
@@ -1355,7 +1360,7 @@ function setupEvents(st, svgId) {
 }
 
 // ─── Document drag ────────────────────────────────────────────────────────────
-document.addEventListener('mousemove',e=>{
+document.addEventListener('pointermove',e=>{
   if(_resizeDrag){
     const svg=document.getElementById(_resizeDrag.svgId);
     const p=svgPt(svg,e.clientX,e.clientY);
@@ -1374,7 +1379,7 @@ document.addEventListener('mousemove',e=>{
   if(_drag.live){_suppressHistPush=true;fullRender(_drag.st,_drag.svgId);_suppressHistPush=false;}
 });
 
-document.addEventListener('mouseup',e=>{
+document.addEventListener('pointerup',e=>{
   if(_resizeDrag){_resizeDrag=null;return;}
   if(!_drag)return;
   const {st,svgId,strand,live}=_drag; _drag=null;
