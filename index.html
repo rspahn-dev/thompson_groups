@@ -46,13 +46,19 @@
     #result-panel { margin-top: 6px; }
     .usage-panel {
       background: #161b22; border: 1px solid #30363d; border-radius: 10px;
-      padding: 12px 16px; max-width: 220px; flex-shrink: 0;
+      padding: 8px 12px; max-width: 220px; flex-shrink: 0;
     }
     .usage-panel h3 {
       font-size: 11px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.08em; color: #8b949e; margin-bottom: 8px;
+      letter-spacing: 0.08em; color: #8b949e; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
+      user-select: none;
     }
-    .usage-panel .hint-item { font-size: 11px; color: #8b949e; margin-bottom: 5px; line-height: 1.5; }
+    .usage-panel h3::after { content: '▾'; font-size: 10px; transition: transform 0.15s; }
+    .usage-panel.collapsed h3::after { transform: rotate(-90deg); }
+    .usage-panel .hint-body { overflow: hidden; transition: max-height 0.2s ease; max-height: 400px; margin-top: 6px; }
+    .usage-panel.collapsed .hint-body { max-height: 0; margin-top: 0; }
+    .usage-panel .hint-item { font-size: 10px; color: #8b949e; margin-bottom: 3px; line-height: 1.35; }
 
     .panel-with-hist { display: flex; flex-direction: row; gap: 8px; flex: 1; min-width: 320px; }
     .elem-panel { flex: 1; min-width: 0; }
@@ -113,16 +119,18 @@
       </label>
     </div>
   </div>
-  <div class="usage-panel">
-    <h3>Usage</h3>
-    <div class="hint-item">click nodes to split/merge</div>
-    <div class="hint-item">click a number to select it, then click another to reroute its permutation arrow</div>
-    <div class="hint-item">drag strands to create crossings</div>
-    <div class="hint-item">click a crossing to remove it</div>
-    <div class="hint-item">shift-click a crossing to flip it over/under</div>
-    <div class="hint-item">drag the bottom handle of the braid/perm zone to resize it</div>
-    <div class="hint-item">shift-click a leaf (braided, n≥2) for a cross-split</div>
-    <div class="hint-item">click an edge (n&gt;1) to cycle its color</div>
+  <div class="usage-panel collapsed" id="usage-panel">
+    <h3 onclick="this.closest('.usage-panel').classList.toggle('collapsed')">Usage</h3>
+    <div class="hint-body">
+      <div class="hint-item">click nodes to split/merge</div>
+      <div class="hint-item">click a number to select it, then click another to reroute its permutation arrow</div>
+      <div class="hint-item">drag strands to create crossings</div>
+      <div class="hint-item">click a crossing to remove it</div>
+      <div class="hint-item">shift-click a crossing to flip it over/under</div>
+      <div class="hint-item">drag the bottom handle of the braid/perm zone to resize it</div>
+      <div class="hint-item">shift-click a leaf (braided, n≥2) for a cross-split</div>
+      <div class="hint-item">click an edge (n&gt;1) to cycle its color</div>
+    </div>
   </div>
 </div>
 
