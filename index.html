@@ -98,14 +98,14 @@
 <div class="page-header" style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; margin-bottom:20px;">
   <div>
     <h1>Thompson Group Element Visualizer</h1>
-    <p class="subtitle">Visualize and multiply elements of Thompson's groups F, T, V, nV, and bV.</p>
+    <p class="subtitle">Visualize and multiply elements of Thompson's groups F, T, V, nV, and V<sub>br</sub>.</p>
     <div class="group-row" style="margin-bottom:0">
       <label>Colors n =</label>
       <input id="n-input" type="number" min="1" max="8" value="1"
         style="width:52px;background:#161b22;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:4px 8px;font-size:13px"
         onchange="onNChange()">
       <label style="margin-left:16px;display:flex;align-items:center;gap:6px;cursor:pointer">
-        <input id="braided-check" type="checkbox" onchange="onBraidedChange()"> Braided (bV)
+        <input id="braided-check" type="checkbox" onchange="onBraidedChange()"> Braided (V<sub>br</sub>)
       </label>
     </div>
   </div>
@@ -135,7 +135,7 @@
         <button class="btn-ex" onclick="presetInto(0,'rot4')">4-rot &isin; T</button>
         <button class="btn-ex" onclick="presetInto(0,'swap')">Swap &isin; V</button>
         <button class="btn-ex" onclick="loadCrossPreset(0,'svg0')">Cross &isin; nV</button>
-        <button class="btn-ex" onclick="loadBraidedCrossPreset(0,'svg0')">BCross &isin; bV</button>
+        <button class="btn-ex" onclick="loadBraidedCrossPreset(0,'svg0')">BCross &isin; V<sub>br</sub></button>
       </div>
       <div class="diagram-wrap"><svg id="svg0"></svg></div>
     </div>
@@ -161,7 +161,7 @@
         <button class="btn-ex" onclick="presetInto(1,'rot4')">4-rot &isin; T</button>
         <button class="btn-ex" onclick="presetInto(1,'swap')">Swap &isin; V</button>
         <button class="btn-ex" onclick="loadCrossPreset(1,'svg1')">Cross &isin; nV</button>
-        <button class="btn-ex" onclick="loadBraidedCrossPreset(1,'svg1')">BCross &isin; bV</button>
+        <button class="btn-ex" onclick="loadBraidedCrossPreset(1,'svg1')">BCross &isin; V<sub>br</sub></button>
       </div>
       <div class="diagram-wrap"><svg id="svg1"></svg></div>
     </div>
@@ -1547,7 +1547,7 @@ function loadBraidedCrossPreset(idx, svgId) {
   const otherId = idx === 0 ? 1 : 0;
   _pendingHistLabel[otherId] = 'Braided mode';
   fullRender(ST[otherId], 'svg' + otherId);
-  _pendingHistLabel[idx] = 'BCross ∈ bV';
+  _pendingHistLabel[idx] = 'BCross ∈ Vbr';
   fullRender(st, svgId);
 }
 
